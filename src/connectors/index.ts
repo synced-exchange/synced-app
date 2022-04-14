@@ -1,6 +1,8 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
+import { WalletLinkConnector } from '@web3-react/walletlink-connector'
+
 import { NetworkConnector } from './NetworkConnector'
 
 import { getLibrary } from 'utils/library'
@@ -25,4 +27,11 @@ export const walletconnect = new WalletConnectConnector({
   supportedChainIds: SUPPORTED_CHAIN_IDS,
   rpc: NETWORK_URLS,
   qrcode: true,
+})
+
+export const walletlink = new WalletLinkConnector({
+  url: NETWORK_URLS[FALLBACK_CHAIN_ID],
+  appName: 'synced',
+  appLogoUrl: require('/public/static/images/AppLogo.png'),
+  supportedChainIds: SUPPORTED_CHAIN_IDS,
 })

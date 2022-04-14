@@ -50,5 +50,5 @@ export const SynchronizerChains = [SupportedChainId.FANTOM]
 export const FALLBACK_CHAIN_ID = SupportedChainId.FANTOM
 
 export const NETWORK_URLS: { [chainId: number]: string } = {
-  [SupportedChainId.FANTOM]: 'https://rpc.ankr.com/fantom',
+  [SupportedChainId.FANTOM]: 'https://rpc.ftm.tools',
 }

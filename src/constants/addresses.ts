@@ -21,11 +21,15 @@ export const Synchronizer: AddressMap = {
   [SupportedChainId.FANTOM]: addresses.Synchronizer[SupportedChainId.FANTOM],
 }
 
+export const DeiMinter: AddressMap = {
+  [SupportedChainId.FANTOM]: addresses.DeiMinter[SupportedChainId.FANTOM],
+}
+
 export const PartnerManager: AddressMap = {
   [SupportedChainId.FANTOM]: addresses.PartnerManager[SupportedChainId.FANTOM],
 }
 
-export const PartnerId = {
-  name: 'Synced Exchange',
-  address: '0x302041dbeB23bc42eb33E85f1c0aE8d5bEDa716A',
+export const PartnerId: { [partner: string]: string } = {
+  DSYNTHS: '0x302041dbeB23bc42eb33E85f1c0aE8d5bEDa716A',
+  JADE: '0x302041dbeB23bc42eb33E85f1c0aE8d5bEDa716A', // THIS IS TEMPORARY
 }

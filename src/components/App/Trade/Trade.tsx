@@ -22,7 +22,7 @@ import {
 import useDefaultsFromURL from 'state/trade/hooks'
 import { useNetworkModalToggle, useWalletModalToggle } from 'state/application/hooks'
 
-import { Synchronizer } from 'constants/addresses'
+import { DeiMinter, Synchronizer } from 'constants/addresses'
 import { FALLBACK_CHAIN_ID, SynchronizerChains } from 'constants/chains'
 import { formatDollarAmount } from 'utils/numbers'
 
@@ -220,8 +220,8 @@ export default function Trade() {
     if (!isSupportedChainId || !chainId) {
       return undefined
     }
-    return Synchronizer[chainId]
-  }, [chainId, isSupportedChainId])
+    return tradeType === TradeType.OPEN ? DeiMinter[chainId] : Synchronizer[chainId]
+  }, [chainId, tradeType, isSupportedChainId])
 
   const [approvalState, approveCallback1] = useApproveCallback(currencies[0], spender)
 
@@ -355,7 +355,7 @@ export default function Trade() {
       )
     }
     if (showApprove) {
-      return <PrimaryButton onClick={handleApprove}>Allow Synced to spend your {currencies[0]?.symbol}</PrimaryButton>
+      return <PrimaryButton onClick={handleApprove}>Approve {currencies[0]?.symbol}</PrimaryButton>
     }
     return null
   }
@@ -376,7 +376,6 @@ export default function Trade() {
     if (!registrar) {
       return <PrimaryButton>Select an asset</PrimaryButton>
     }
-
     if (error === PrimaryError.BALANCE) {
       return <PrimaryButton disabled>Insufficient {currencies[0]?.symbol} Balance</PrimaryButton>
     }

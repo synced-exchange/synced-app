@@ -6,8 +6,8 @@ import { Web3Provider } from '@ethersproject/providers'
 
 import useWeb3React from './useWeb3'
 
-import { ERC20_ABI, ERC20_BYTES32_ABI, Multicall2ABI, SynchronizerABI, PartnerManagerABI } from 'constants/abi'
-import { Multicall2, PartnerManager, Synchronizer } from 'constants/addresses'
+import { ERC20_ABI, ERC20_BYTES32_ABI, Multicall2ABI, SynchronizerABI } from 'constants/abi'
+import { Multicall2, Synchronizer } from 'constants/addresses'
 import { Providers } from 'constants/providers'
 
 export function useContract<T extends Contract = Contract>(
@@ -44,12 +44,6 @@ export function useSynchronizerContract() {
   const { chainId } = useWeb3React()
   const address = useMemo(() => (chainId ? Synchronizer[chainId] : undefined), [chainId])
   return useContract(address, SynchronizerABI)
-}
-
-export function usePartnerManager() {
-  const { chainId } = useWeb3React()
-  const address = useMemo(() => (chainId ? PartnerManager[chainId] : undefined), [chainId])
-  return useContract(address, PartnerManagerABI)
 }
 
 export function useMulticall2Contract() {
