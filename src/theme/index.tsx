@@ -120,7 +120,7 @@ function colors(themeName: SupportedThemes): Colors {
 function shadows(themeName: SupportedThemes): Shadows {
   const themeShadows = {
     [SupportedThemes.DARK]: {
-      shadow1: '#000',
+      shadow1: '0px 0px 5px rgba(112, 234, 226, 0.76)',
       boxShadow1: '0px 0px 4px rgba(0, 0, 0, 0.125)',
       boxShadow2: '0px 5px 5px rgba(0, 0, 0, 0.15)',
     },

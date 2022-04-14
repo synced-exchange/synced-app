@@ -80,6 +80,7 @@ const TitleSecondaryLabel = styled.div`
 const Divider = styled.div`
   margin: 0.5rem 0rem;
   border: 1px solid ${({ theme }) => theme.themeColor};
+  box-shadow: ${({ theme }) => theme.shadow1};
 `
 
 const BodyContainer = styled.div`

@@ -89,7 +89,7 @@ const MarketSpan = styled.span<{
 const Divider = styled.div`
   margin: 0rem 1.5rem 0.5rem 1.5rem;
   border: 1px solid ${({ theme }) => theme.themeColor};
-  box-shadow: 0px 0px 5px rgba(112, 234, 226, 0.76);
+  box-shadow: ${({ theme }) => theme.shadow1};
 `
 
 type CandlestickResponse = {
