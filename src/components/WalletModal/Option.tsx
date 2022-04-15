@@ -17,7 +17,7 @@ const Wrapper = styled.button<{
   align-items: center;
   justify-content: space-between;
   padding: 0.8rem;
-  background: ${({ theme }) => theme.bg1};
+  background: ${({ theme }) => theme.bg0};
   border-radius: 10px;
   opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
   outline: none;
@@ -34,7 +34,7 @@ const Wrapper = styled.button<{
   ${({ theme, clickable }) =>
     !clickable &&
     `
-    background: ${darken(0.07, theme.bg1)};
+    background: ${darken(0.07, theme.bg0)};
     border: 1px solid transparent;
     &:hover,
     &:focus {

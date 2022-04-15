@@ -20,11 +20,11 @@ export default function useDefaultsFromURL(): {
   const registrars = useRegistrars()
   const router = useRouter()
 
-  const [theme, contract] = useMemo(() => {
+  const [contract] = useMemo(() => {
     const contract = router.query?.registrarId || undefined
     const parsedContract = typeof contract === 'string' ? contract.toLowerCase() : ''
 
-    return [router.query?.theme || undefined, parsedContract]
+    return [parsedContract]
   }, [router])
 
   const baseCurrency =
@@ -45,27 +45,19 @@ export default function useDefaultsFromURL(): {
     async (currencyOrContract: Currency | string) => {
       if (typeof currencyOrContract === 'string' && isAddress(currencyOrContract)) {
         const query: ParsedUrlQueryInput = { registrarId: currencyOrContract }
-        // if there is a custom theme defined via url, preserve it
-        if (theme) {
-          query.theme = theme
-        }
         await router.push({
           pathname: router.pathname,
           query,
         })
       } else if (instanceOfCurrency(currencyOrContract) && currencyOrContract?.wrapped?.address) {
         const query: ParsedUrlQueryInput = { registrarId: currencyOrContract.wrapped.address }
-        // if there is a custom theme defined via url, preserve it
-        if (theme) {
-          query.theme = theme
-        }
         await router.push({
           pathname: router.pathname,
           query,
         })
       }
     },
-    [router, theme]
+    [router]
   )
 
   return {

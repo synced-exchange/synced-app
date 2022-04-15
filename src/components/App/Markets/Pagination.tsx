@@ -26,6 +26,7 @@ const Wrapper = styled.div`
 
       :hover {
         cursor: pointer;
+        background: ${({ theme }) => theme.bg1};
       }
 
       ${({ theme }) => theme.mediaWidth.upToSmall`

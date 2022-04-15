@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   flex-flow: column nowrap;
   width: 100%;
   margin-bottom: 10px;
-  background: ${({ theme }) => theme.bg0};
+  background: ${({ theme }) => theme.bg1};
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.border2};
 `

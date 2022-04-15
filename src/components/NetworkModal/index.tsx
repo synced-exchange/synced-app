@@ -47,14 +47,14 @@ const Option = styled.div<{
   ${({ theme, active }) =>
     active
       ? `
-    background: ${darken(0.07, theme.bg1)};
+    background: ${darken(0.07, theme.bg0)};
     &:hover,
     &:focus {
       cursor: default;
     }
   `
       : `
-    background: ${theme.bg1};
+    background: ${theme.bg0};
     &:hover,
     &:focus {
       cursor: pointer;

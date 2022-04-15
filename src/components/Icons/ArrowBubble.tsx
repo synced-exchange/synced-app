@@ -11,7 +11,7 @@ const Circle = styled.div<{
   border-radius: 50%;
   width: ${({ size }) => size + 'px'};
   height: ${({ size }) => size + 'px'};
-  background: ${({ theme }) => theme.bg1};
+  background: ${({ theme }) => theme.bg0};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 

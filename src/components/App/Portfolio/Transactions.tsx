@@ -56,7 +56,7 @@ const TransactionRecord = styled.div<{
   flex-flow: column nowrap;
   justify-content: flex-start;
   padding-top: 0.8rem;
-  border: ${({ theme, isExpanded }) => (isExpanded ? `1px solid ${theme.border1}` : 'none')};
+  border: ${({ theme, isExpanded }) => (isExpanded ? `1px solid ${theme.border3}` : 'none')};
   border-radius: ${({ isExpanded }) => (isExpanded ? `10px` : `0px`)};
   margin-bottom: ${({ isExpanded }) => (isExpanded ? `0.25rem` : `0px`)};
   transition: all 0.5s ease;
@@ -115,7 +115,7 @@ export const ActionIconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${({ theme }) => theme.bg2};
+  background: ${({ theme }) => theme.bg0};
   border-radius: 50%;
   min-width: 25px;
   min-height: 25px;
@@ -164,7 +164,7 @@ const Date = styled.div`
 `
 
 const FeeToolTip = styled(ReactTooltip)`
-  color: ${({ theme }) => theme.bg0} !important;
+  color: ${({ theme }) => theme.bg1} !important;
   opacity: 1 !important;
   padding: 3px 7px !important;
   font-size: 0.6rem !important;

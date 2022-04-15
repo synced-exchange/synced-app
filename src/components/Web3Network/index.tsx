@@ -12,11 +12,11 @@ const Button = styled(NavButton)`
   background: transparent;
   justify-content: space-between;
   gap: 5px;
+  border: 1px solid ${({ theme }) => theme.bg2};
 
   &:focus,
   &:hover {
     cursor: default;
-    border: 1px solid ${({ theme }) => theme.border2};
   }
 `
 

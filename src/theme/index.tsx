@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Text, TextProps as TextPropsOriginal } from 'rebass'
 import styled, {
   createGlobalStyle,
@@ -7,9 +7,7 @@ import styled, {
   ThemeProvider as StyledComponentsThemeProvider,
 } from 'styled-components'
 
-import { useIsDarkMode } from 'state/user/hooks'
 import { Colors, Shadows } from './styled'
-import { useRouter } from 'next/router'
 
 type TextProps = Omit<TextPropsOriginal, 'css'>
 
@@ -49,70 +47,12 @@ const white = '#FFFFFF'
 const black = '#000000'
 
 export enum SupportedThemes {
-  LIGHT = 'light',
   DARK = 'dark',
-  JADE = 'jade',
 }
 
 function colors(themeName: SupportedThemes): Colors {
   // define colour scheme for each supported theme
   const themeColors = {
-    [SupportedThemes.LIGHT]: {
-      themeName: SupportedThemes.LIGHT,
-
-      // base
-      white,
-      black,
-
-      // text
-      text1: '#000000',
-      text2: '#78787B',
-      text3: '#808086',
-      text4: '#B8B8BE',
-
-      // backgrounds / greys
-      bg0: '#FFFFFF',
-      bg1: '#F5F6FC',
-      bg2: '#F0F0F7',
-      bg3: '#E9E9F3',
-
-      // borders
-      border1: '#B8B8BE',
-      border2: 'rgba(99, 126, 161, 0.2)',
-
-      //specialty colors
-      specialBG1:
-        'radial-gradient(95.21% 95.21% at 50% 4.79%, rgba(138, 148, 220, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%)',
-      specialBG2:
-        'linear-gradient(90deg, rgba(81, 171, 255, 0.1) 0%, rgba(22, 72, 250, 0.1) 100%), linear-gradient(0deg, #FFFFFF, #FFFFFF)',
-
-      // primary colors
-      primary1: 'linear-gradient(90deg, #FFBA35 1.54%, #FFB463 98.9%)',
-      primary2: 'linear-gradient(90deg, #FFBA35 1.54%, #FFA76A 50%)',
-      primary3: '#FFBA35',
-
-      // color text
-      primaryText1: '#FFB463', // TODO check if we want these values
-
-      // secondary colors
-      secondary1: '#1749FA',
-      secondary2: 'rgba(23, 73, 250, 0.2)',
-
-      // other
-      red1: '#DA2D2B',
-      red2: '#DF1F38',
-      red3: '#D60000',
-      green1: '#007D35',
-      yellow1: '#E3A507',
-      yellow2: '#FF8F00',
-      yellow3: '#F3B71E',
-      blue1: '#0068FC',
-      blue2: '#0068FC',
-
-      error: '#DF1F38',
-      success: '#007D35',
-      warning: '#FF8F00',
-    },
     [SupportedThemes.DARK]: {
       themeName: SupportedThemes.DARK,
 
@@ -120,29 +60,33 @@ function colors(themeName: SupportedThemes): Colors {
       white,
       black,
 
+      themeColor: '#00C2FF',
+
       // text
       text1: '#FFFFFF',
       text2: '#C3C5CB',
       text3: '#8F96AC',
-      text4: '#B2B9D2',
+      text4: '#6F6F6F',
 
       // backgrounds / greys
-      bg0: '#14181E',
-      bg1: '#262B35',
-      bg2: '#0F1217',
-      bg3: '#262B35',
+      bg0: '#011518',
+      bg1: '#01272C',
+      bg2: '#121826',
+      bg3: '#E5E5E5',
+      bg4: '#1a3c41',
 
       // borders
       border1: '#B8B8BE',
-      border2: 'rgba(99, 126, 161, 0.2)',
+      border2: 'rgba(206, 206, 206, 0.35)',
+      border3: '#A9A8A8',
 
       //specialty colors
-      specialBG1: '#0F1217',
-      specialBG2: '#14181E',
+      specialBG1: 'linear-gradient(180deg, #000000 14.58%, #00333A 100%)',
+      specialBG2: 'linear-gradient(0deg, #67DAF9, #67DAF9), #F3F4F8',
 
       // primary colors
-      primary1: 'linear-gradient(90deg, #FFBA35 1.54%, #FFB463 98.9%)',
-      primary2: 'linear-gradient(90deg, #FFBA35 1.54%, #FFA76A 50%)',
+      primary1: 'linear-gradient(90deg, #00E6D9 1.98%, #75D8FB 49.43%)',
+      primary2: 'linear-gradient(90deg, #75D8FB 1.98%, #00E6D9 98.43%)',
       primary3: '#FFBA35',
 
       // color text
@@ -155,61 +99,7 @@ function colors(themeName: SupportedThemes): Colors {
       // other
       red1: '#FF4343',
       red2: '#F82D3A',
-      red3: '#D60000',
-      green1: '#27AE60',
-      yellow1: '#E3A507',
-      yellow2: '#FF8F00',
-      yellow3: '#F3B71E',
-      blue1: '#2172E5',
-      blue2: '#5199FF',
-
-      error: '#FD4040',
-      success: '#27AE60',
-      warning: '#FF8F00',
-    },
-    [SupportedThemes.JADE]: {
-      themeName: SupportedThemes.JADE,
-
-      // base
-      white,
-      black,
-
-      // text
-      text1: '#FFFFFF',
-      text2: '#D9F1F9',
-      text3: '#C7EAF7',
-      text4: '#B4E3F4',
-
-      // backgrounds / greys
-      bg0: '#0D0F22',
-      bg1: '#212230',
-      bg2: '#0D0F22',
-      bg3: '#225D72',
-
-      // borders
-      border1: '#ECF8FC',
-      border2: 'rgba(55, 65, 81, 0.3)',
-
-      //specialty colors
-      specialBG1: '#0D0F22',
-      specialBG2: '#0D0F22',
-
-      // primary colors
-      primary1: '#0abd96',
-      primary2: '#078d70',
-      primary3: '#4ebaa2',
-
-      // color text
-      primaryText1: '#1749FA',
-
-      // secondary colors
-      secondary1: 'rgba(109, 215, 132, 0.1)',
-      secondary2: 'rgba(109, 215, 132, 0.2)',
-
-      // other
-      red1: '#FF4343',
-      red2: '#F82D3A',
-      red3: '#D60000',
+      red3: '#FF3300',
       green1: '#27AE60',
       yellow1: '#E3A507',
       yellow2: '#FF8F00',
@@ -222,31 +112,21 @@ function colors(themeName: SupportedThemes): Colors {
       warning: '#FF8F00',
     },
   }
-  // default the theme to light mode
-  return themeName in SupportedThemes ? themeColors[SupportedThemes.LIGHT] : themeColors[themeName]
+  // default the theme to dark mode
+  return themeName in SupportedThemes ? themeColors[SupportedThemes.DARK] : themeColors[themeName]
 }
 
 // define shadow scheme for each supported theme
 function shadows(themeName: SupportedThemes): Shadows {
   const themeShadows = {
-    [SupportedThemes.LIGHT]: {
-      shadow1: '#2F80ED',
-      boxShadow1: '0px 0px 4px rgba(0, 0, 0, 0.125)',
-      boxShadow2: '0px 5px 5px rgba(0, 0, 0, 0.15)',
-    },
     [SupportedThemes.DARK]: {
-      shadow1: '#000',
+      shadow1: '0px 0px 5px rgba(112, 234, 226, 0.76)',
       boxShadow1: '0px 0px 4px rgba(0, 0, 0, 0.125)',
       boxShadow2: '0px 5px 5px rgba(0, 0, 0, 0.15)',
-    },
-    [SupportedThemes.JADE]: {
-      shadow1: '#000',
-      boxShadow1: '',
-      boxShadow2: '',
     },
   }
-  // default the theme to light mode
-  return themeName in SupportedThemes ? themeShadows[SupportedThemes.LIGHT] : themeShadows[themeName]
+  // default the theme to dark mode
+  return themeName in SupportedThemes ? themeShadows[SupportedThemes.DARK] : themeShadows[themeName]
 }
 
 function theme(themeName: SupportedThemes): DefaultTheme {
@@ -269,20 +149,24 @@ function theme(themeName: SupportedThemes): DefaultTheme {
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
   // get theme name from url if any
-  const router = useRouter()
-  const parsed = router.query?.theme
-  const parsedTheme = parsed && typeof parsed === 'string' ? parsed : undefined
 
-  const darkMode = useIsDarkMode()
+  // Enable the below when we support multiple themes
+  // const router = useRouter()
+  // const parsed = router.query?.theme
 
-  let themeName: SupportedThemes
-  if (parsedTheme && Object.values(SupportedThemes).some((theme: string) => theme === parsedTheme)) {
-    themeName = parsedTheme as SupportedThemes
-  } else {
-    themeName = darkMode ? SupportedThemes.DARK : SupportedThemes.LIGHT
-  }
+  //const parsedTheme = parsed && typeof parsed === 'string' ? parsed : undefined
+  //const darkMode = useIsDarkMode()
 
-  const themeObject = useMemo(() => theme(themeName), [themeName])
+  // let themeName: SupportedThemes
+  // if (parsedTheme && Object.values(SupportedThemes).some((theme: string) => theme === parsedTheme)) {
+  //   themeName = parsedTheme as SupportedThemes
+  // } else {
+  //   themeName = darkMode ? SupportedThemes.DARK : SupportedThemes.LIGHT
+  // }
+
+  // const themeObject = useMemo(() => theme(SupportedThemes.DARK), [SupportedThemes.DARK])
+
+  const themeObject = theme(SupportedThemes.DARK)
 
   return <StyledComponentsThemeProvider theme={themeObject}>{children}</StyledComponentsThemeProvider>
 }
@@ -348,7 +232,7 @@ export const ThemedText = {
 export const ThemedGlobalStyle = createGlobalStyle`
   html {
     color: ${({ theme }) => theme.text1};
-    background-color: ${({ theme }) => theme.bg0} !important;
+    background-color: ${({ theme }) => theme.bg1} !important;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -363,7 +247,7 @@ export const ThemedGlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Rubik';
+    font-family: 'Inter';
     background: ${({ theme }) => theme.specialBG1};
   }
 

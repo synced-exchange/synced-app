@@ -13,7 +13,7 @@ const SearchWrapper = styled.div`
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
-  background: ${({ theme }) => theme.bg1};
+  background: ${({ theme }) => theme.bg0};
   border-radius: 10px;
   white-space: nowrap;
   overflow: hidden;

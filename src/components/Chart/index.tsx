@@ -83,7 +83,7 @@ export function LineChart({
           <Area
             dataKey={dataKey}
             type="monotone"
-            stroke={theme.primary3}
+            stroke={theme.themeColor}
             fill="rgba(255, 255, 255, 0.1)"
             strokeWidth={1}
           />

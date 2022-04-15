@@ -8,8 +8,8 @@ import { usePartnerFeeCallback, usePlatformFeeCallback } from 'lib/synchronizer/
 import { TradeType } from 'state/trade/reducer'
 import useCurrencyLogo from 'hooks/useCurrencyLogo'
 import { Direction } from 'hooks/useTradePage'
-import { useIsPartner } from 'hooks/usePartnerId'
 
+import { PartnerId } from 'constants/addresses'
 import { formatDollarAmount } from 'utils/numbers'
 
 import { PrimaryButton } from 'components/Button'
@@ -43,7 +43,8 @@ const TokenRow = styled.div`
   align-items: center;
   gap: 1.25rem;
   font-size: 1.1rem;
-  background: ${({ theme }) => theme.bg1};
+  background: ${({ theme }) => theme.bg3};
+  color: ${({ theme }) => theme.black};
   padding: 0.5rem;
   border-radius: 10px;
 
@@ -131,7 +132,6 @@ export default function ConfirmTrade({
   const logoOut = useCurrencyLogo(tradeType === TradeType.CLOSE ? undefined : registrar?.id, currencyOut?.symbol)
   const getPlatformFee = usePlatformFeeCallback()
   const getPartnerFee = usePartnerFeeCallback()
-  const isPartner = useIsPartner()
 
   const feeAmount: string | null = useMemo(() => {
     if (!amountIn || !amountOut || !registrar) return null
@@ -145,16 +145,12 @@ export default function ConfirmTrade({
     return `${registrar.fee.toSignificant()}% / ${feeAmount} DEI`
   }, [registrar, feeAmount])
 
-  const partnerName = useMemo(() => {
-    return isPartner ? 'Partner' : 'dSynths'
-  }, [isPartner])
-
   const feeToolTip = useMemo(() => {
     if (!registrar) return null
     const platformFee = getPlatformFee(registrar.sector).times(100)
     const partnerFee = getPartnerFee(registrar.sector).times(100)
-    return `${platformFee.toString()}% DEUS DAO <br/> ${partnerFee.toString()}% ${partnerName}`
-  }, [registrar, getPlatformFee, getPartnerFee, partnerName])
+    return `${platformFee.toString()}% DEUS DAO <br/> ${partnerFee.toString()}% ${PartnerId.name}`
+  }, [registrar, getPlatformFee, getPartnerFee])
 
   const priceLabel = useMemo(() => {
     return registrar ? `${formatDollarAmount(Number(registrar.price))}$ / ${registrar.id}` : ''

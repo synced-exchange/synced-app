@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { useAppDispatch } from 'state'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { ZERO } from '@sushiswap/core-sdk'
 import { TrendingDown, TrendingUp } from 'react-feather'
 
@@ -81,18 +81,13 @@ const DirectionTab = styled.div<{
   line-height: 35px;
   text-align: center;
   border-radius: ${({ isLong }) => (isLong ? '10px 0 0 10px' : '0 10px 10px 0')};
-  background: ${({ theme }) => theme.primary1};
-  border: 1px solid ${({ theme }) => theme.primary1};
+  background: ${({ theme }) => theme.bg3};
+  border: 1px solid ${({ theme }) => theme.bg3};
+  color: black;
 
   ${({ theme, active, isLong }) =>
-    active
-      ? `
-      &:hover {
-        background: ${theme.primary2};
-        border-color: ${theme.primary2};
-      };
+    !active &&
     `
-      : `
       background: rgba(206, 206, 206, 0.35);
       border: 1px solid #A9A8A8;
       ${isLong && `border-right: none`};
@@ -151,7 +146,7 @@ const FeeWrapper = styled.div`
   flex-flow: row nowrap;
   justify-content: space-between;
   font-size: 0.6rem;
-  color: ${({ theme }) => theme.text2};
+  color: ${({ theme }) => theme.white};
   align-items: center;
   width: 100%;
   margin-top: 20px;
@@ -185,6 +180,7 @@ export default function Trade() {
   const dispatch = useAppDispatch()
   const { chainId, account } = useWeb3React()
   const isJadeTheme = useIsJadeTheme()
+  const theme = useTheme()
   const {
     currencies: { baseCurrency, quoteCurrency },
     setURLCurrency,
@@ -422,7 +418,7 @@ export default function Trade() {
             }
           />
           <ArrowWrapper onClick={handleSwitchCurrencies}>
-            <ArrowBubble size={30} />
+            <ArrowBubble size={30} style={{ background: theme.specialBG2 }} />
           </ArrowWrapper>
           <InputBox
             currency={currencies[1]}

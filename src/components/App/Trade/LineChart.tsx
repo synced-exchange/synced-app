@@ -44,10 +44,8 @@ const InfoWrapper = styled.div`
   flex-flow: row nowrap;
   justify-content: space-between;
   gap: 6px;
-  border-bottom: 1px solid ${({ theme }) => theme.border2};
-  padding: 10px 20px;
+  padding: 1rem 1.5rem;
   align-items: flex-start;
-  margin-bottom: 4px;
 
   ${({ theme }) => theme.mediaWidth.upToSmall`
     gap: 3px;
@@ -86,6 +84,12 @@ const MarketSpan = styled.span<{
   positive: boolean
 }>`
   color: ${({ positive, theme }) => (positive ? theme.green1 : theme.red1)};
+`
+
+const Divider = styled.div`
+  margin: 0rem 1.5rem 0.5rem 1.5rem;
+  border: 1px solid ${({ theme }) => theme.themeColor};
+  box-shadow: ${({ theme }) => theme.shadow1};
 `
 
 type CandlestickResponse = {
@@ -336,6 +340,7 @@ export default function LineChart() {
           {afterHoursLabel && <BottomText>{afterHoursLabel}</BottomText>}
         </div>
       </InfoWrapper>
+      <Divider />
       <Chart data={candlesticks} dataKey="close" loading={candlesticksLoading} onTooltipHover={onTooltipHover} />
     </Wrapper>
   )

@@ -41,16 +41,15 @@ class MyDocument extends Document {
             <link rel="apple-touch-icon" sizes="192x192" href="/images/192x192_App_Icon.png" />
             <link rel="apple-touch-icon" sizes="512x512" href="/images/512x512_App_Icon.png" />
 
-            <title>dSYNTHS</title>
+            <title>SYNCED</title>
             <meta
               name="description"
               content="Trade stocks and commodities in a decentralized fashion. No KYC - No Signup."
             />
-            <script defer data-domain="app.dsynths.com" src="https://plausible.io/js/plausible.js"></script>
 
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-            <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet" />
+            <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
           </>
         </Head>
         <body>

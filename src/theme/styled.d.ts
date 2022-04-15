@@ -9,6 +9,8 @@ export interface Colors {
   white: Color
   black: Color
 
+  themeColor: Color
+
   // text
   text1: Color
   text2: Color
@@ -20,10 +22,12 @@ export interface Colors {
   bg1: Color
   bg2: Color
   bg3: Color
+  bg4: Color
 
   // borders
   border1: Color
   border2: Color
+  border3: Color
 
   specialBG1: Color
   specialBG2: Color

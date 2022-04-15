@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { Currency } from '@sushiswap/core-sdk'
 import { darken } from 'polished'
 
@@ -18,16 +18,15 @@ const Wrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
-  background: ${({ theme }) => theme.bg1};
+  background: ${({ theme }) => theme.bg3};
   border-radius: 10px;
   gap: 10px;
   white-space: nowrap;
   overflow: hidden;
-  border: 1px solid ${({ theme }) => theme.border2};
-  padding: 0.6rem;
-  height: 82px;
+  padding: 0.75rem;
+  min-height: 5.5rem;
 `
 
 const RegistrarPanel = styled.div`
@@ -40,6 +39,7 @@ const Row = styled.div`
   flex-flow: row nowrap;
   align-items: center;
   gap: 10px;
+  color: ${({ theme }) => theme.black};
 `
 
 const RegistrarSelect = styled(Row)<{
@@ -47,13 +47,13 @@ const RegistrarSelect = styled(Row)<{
 }>`
   padding: 5px 7px;
   border-radius: 20px;
-  background: ${({ theme }) => darken(0.05, theme.bg1)};
-  color: ${({ theme }) => theme.text2};
+  background: ${({ theme }) => darken(0.1, theme.bg3)};
+  color: ${({ theme }) => theme.black};
   font-size: ${({ select }) => select && '0.9rem'};
 
   &:hover {
     cursor: pointer;
-    background: ${({ theme }) => darken(0.03, theme.bg1)};
+    background: ${({ theme }) => darken(0.05, theme.bg3)};
   }
 
   ${({ theme, select }) => theme.mediaWidth.upToMedium`
@@ -67,17 +67,17 @@ const Balance = styled(Row)`
   margin-top: 5px;
   margin-left: 8px;
   gap: 5px;
-  color: ${({ theme }) => theme.text2};
+  color: ${({ theme }) => theme.text4};
 
   & > span {
-    background: ${({ theme }) => theme.secondary1};
+    background: ${({ theme }) => theme.bg1};
     border-radius: 6px;
-    padding: 2px 3px;
+    padding: 0.25rem 0.3rem;
     font-size: 0.6rem;
     color: white;
 
     &:hover {
-      background: ${({ theme }) => theme.secondary2};
+      opacity: 0.7;
       cursor: pointer;
     }
   }
@@ -95,11 +95,11 @@ const InputWrapper = styled.div`
 
 const InputField = styled.input`
   text-align: right;
-  padding: 20px 1.25rem;
+  padding: 0.5rem 0.6rem;
   border: none;
   background: transparent;
   font-size: 1rem;
-  color: ${({ theme }) => theme.text2};
+  color: ${({ theme }) => theme.text4};
 
   &:focus,
   &:hover {
@@ -169,6 +169,7 @@ export default function InputBox({
   onChange(x?: string): void
 }) {
   const { account } = useWeb3React()
+  const theme = useTheme()
   const registrar = useRegistrarByContract(currency?.wrapped.address ?? '')
   const balance = useCurrencyBalance(account ?? undefined, currency ?? undefined)
   const logo = useCurrencyLogo(registrar?.id, currency?.symbol)
@@ -197,7 +198,7 @@ export default function InputBox({
             <RegistrarSelect onClick={() => setModalOpen(true)}>
               <ImageWithFallback src={logo} width={30} height={30} alt={`${currency?.symbol} Logo`} round />
               {currency?.symbol}
-              <ChevronDown size={15} />
+              <ChevronDown size={15} color={theme.black} />
             </RegistrarSelect>
           ) : (
             <Row style={{ marginLeft: '5px' }}>

@@ -11,6 +11,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
+  background: ${({ theme }) => theme.bg0};
+  border: 1px solid ${({ theme }) => theme.border2};
+  border-radius: 1rem;
+  padding: 1rem;
   min-height: 350px; /* hardcoded because a non-complete page will shift the height */
 `
 

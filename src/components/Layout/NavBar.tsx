@@ -1,27 +1,25 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { isMobileOnly as isMobile } from 'react-device-detect'
 
 import { Z_INDEX } from 'theme'
-import { useIsDedicatedTheme } from 'hooks/useTheme'
-import { useDarkModeManager } from 'state/user/hooks'
 
 import Web3Network from 'components/Web3Network'
 import Web3Status from 'components/Web3Status'
-import { ThemeToggle, Search as SearchIcon } from 'components/Icons'
+import { Search as SearchIcon } from 'components/Icons'
 import { NavButton } from 'components/Button'
 import RegistrarsModal from 'components/RegistrarsModal'
 import Menu from './Menu'
 import NavLogo from './NavLogo'
+import { lighten } from 'polished'
 
 const Wrapper = styled.div`
   padding: 0px 2rem;
   height: 55px;
   align-items: center;
-  background: ${({ theme }) => theme.bg2};
-  border-bottom: ${({ theme }) => theme.border2};
+  background: ${({ theme }) => theme.black};
   gap: 5px;
   z-index: ${Z_INDEX.fixed};
 
@@ -86,7 +84,7 @@ const NavLink = styled.div<{
   font-size: 1rem;
   padding: 0.25rem 1rem;
   text-align: center;
-  color: ${({ theme }) => theme.text2};
+  color: ${({ theme }) => theme.text3};
   font-weight: 500;
 
   ${({ active, theme }) =>
@@ -94,34 +92,26 @@ const NavLink = styled.div<{
     `
     pointer-events: none;
     text-decoration: underline;
-    text-decoration-color: ${theme.primary2};
+    color: ${theme.white};
+    text-decoration-color: ${theme.white};
     text-underline-offset: 6px;
   `};
 
   &:hover {
     cursor: pointer;
-    color: ${({ theme }) => theme.primary1};
+    color: ${({ theme }) => lighten(0.1, theme.text3)};
   }
 `
 
 const SearchText = styled.div`
   font-size: 0.8rem;
-  margin-right: 5px;
+  margin-left: 5px;
   color: ${({ theme }) => theme.text2};
 `
 
 export default function NavBar() {
   const router = useRouter()
-  const [, toggleDarkMode] = useDarkModeManager()
   const [registrarModalOpen, setRegistrarModalOpen] = useState<boolean>(false)
-  const isDedicatedTheme = useIsDedicatedTheme()
-
-  const buildUrl = useCallback(
-    (path: string) => {
-      return isDedicatedTheme ? `/${path}?theme=${router.query.theme}` : `/${path}`
-    },
-    [router, isDedicatedTheme]
-  )
 
   function getMobileContent() {
     return (
@@ -138,26 +128,21 @@ export default function NavBar() {
       <DefaultWrapper>
         <NavLogo />
         <Routes>
-          <Link href={buildUrl('trade')} passHref>
+          <Link href={'/trade'} passHref>
             <NavLink active={router.route === '/trade'}>Trade</NavLink>
           </Link>
-          <Link href={buildUrl('markets')} passHref>
+          <Link href={'/markets'} passHref>
             <NavLink active={router.route === '/markets'}>Markets</NavLink>
           </Link>
-          <Link href={buildUrl('portfolio')} passHref>
+          <Link href={'/portfolio'} passHref>
             <NavLink active={router.route === '/portfolio'}>Portfolio</NavLink>
           </Link>
         </Routes>
         <Items>
           <NavButton onClick={() => setRegistrarModalOpen(true)}>
-            <SearchText>Search for a ticker</SearchText>
             <SearchIcon size={20} />
+            <SearchText>Search for an asset</SearchText>
           </NavButton>
-          {!isDedicatedTheme && (
-            <NavButton onClick={() => toggleDarkMode()}>
-              <ThemeToggle size={20} />
-            </NavButton>
-          )}
           <Web3Network />
           <Web3Status />
           <Menu />

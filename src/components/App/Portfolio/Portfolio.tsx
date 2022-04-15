@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
@@ -160,7 +159,7 @@ const PrimaryLabel = styled.div`
   color: ${({ theme }) => theme.text1};
 
   & > span {
-    color: ${({ theme }) => theme.primary3};
+    color: ${({ theme }) => theme.themeColor};
     &:hover {
       cursor: pointer;
     }
@@ -281,7 +280,6 @@ export default function Portfolio() {
 
 function RegistrarRow({ contract }: { contract: string }) {
   const dispatch = useAppDispatch()
-  const router = useRouter()
   const registrar = useRegistrarByContract(contract)
   const logo = useCurrencyLogo(registrar?.id, registrar?.symbol)
   const balances = useActiveBalances()
@@ -342,18 +340,8 @@ function RegistrarRow({ contract }: { contract: string }) {
     return showEquity ? formatDollarAmount(equity.toNumber()) : `${equity.div(totalEquity).times(100).toFixed(2)}%`
   }, [equity, totalEquity, showEquity])
 
-  const buildUrl = useCallback(
-    (contract: string) => {
-      const queryString = Object.keys(router.query)
-        .map((key) => key + '=' + router.query[key])
-        .join('&')
-      return `/trade?registrarId=${contract}&${queryString}`
-    },
-    [router]
-  )
-
   return (
-    <Link href={buildUrl(contract)} passHref>
+    <Link href={`/trade?registrarId=${contract}`} passHref>
       <RowWrapper>
         <ImageWithFallback src={logo} width={30} height={30} alt={`${registrar?.symbol}`} round />
         <RowContent>

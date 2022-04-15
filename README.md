@@ -1,4 +1,4 @@
-# DSYNTHS Exchange
+# SYNCED Exchange
 
 Trade stocks and commodities in a decentralized fashion. No KYC - No Signup.
 

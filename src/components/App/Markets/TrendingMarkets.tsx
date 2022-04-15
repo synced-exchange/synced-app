@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Virtual } from 'swiper'
@@ -45,7 +44,7 @@ const SwiperContainer = styled(Swiper)`
     background: white;
   }
   .swiper-pagination-bullet-active {
-    background: ${({ theme }) => theme.yellow1};
+    background: ${({ theme }) => theme.themeColor};
   }
 `
 
@@ -80,7 +79,8 @@ const TitleSecondaryLabel = styled.div`
 
 const Divider = styled.div`
   margin: 0.5rem 0rem;
-  border: 1px solid ${({ theme }) => theme.border2};
+  border: 1px solid ${({ theme }) => theme.themeColor};
+  box-shadow: ${({ theme }) => theme.shadow1};
 `
 
 const BodyContainer = styled.div`
@@ -114,15 +114,11 @@ const LoadingContainer = styled(Card)`
   display: flex;
   text-align: center;
   padding: 3rem;
+  background: ${({ theme }) => theme.bg0};
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
   padding: 2.25rem;
 `}
-
-  &:hover {
-    cursor: pointer;
-    background: ${({ theme }) => theme.bg1};
-  }
 `
 
 const BodyPrimaryLabel = styled.div`
@@ -237,7 +233,6 @@ export default function TrendingMarkets() {
 const MemoizedAssetCard = React.memo(AssetCard, areEqual)
 
 function AssetCard({ asset, index }: { asset: TopMarket; index: number }) {
-  const router = useRouter()
   const registrar = useRegistrarByContract(asset.id)
 
   const { ticker, contract, price, volume, isMarketOpen } = useMemo(
@@ -252,18 +247,8 @@ function AssetCard({ asset, index }: { asset: TopMarket; index: number }) {
   )
   const logo = useCurrencyLogo(ticker, undefined)
 
-  const buildUrl = useCallback(
-    (contract: string) => {
-      const queryString = Object.keys(router.query)
-        .map((key) => key + '=' + router.query[key])
-        .join('&')
-      return queryString ? `/trade?registrarId=${contract}&${queryString}` : `/trade?registrarId=${contract}`
-    },
-    [router]
-  )
-
   return (
-    <Link href={buildUrl(contract)} passHref>
+    <Link href={`/trade?registrarId=${contract}`} passHref>
       <Wrapper>
         <TitleContainer>
           <TitlePrimaryLabel>#{index}</TitlePrimaryLabel>

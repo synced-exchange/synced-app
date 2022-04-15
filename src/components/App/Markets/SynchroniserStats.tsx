@@ -22,7 +22,7 @@ const Container = styled.div`
 const PrimaryLabel = styled.div`
   font-size: 1.5rem;
   line-height: 1.75rem;
-  color: ${({ theme }) => theme.yellow1};
+  color: ${({ theme }) => theme.themeColor};
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     font-size: 1rem;
@@ -33,7 +33,7 @@ const PrimaryLabel = styled.div`
 const SecondaryLabel = styled.div`
   font-size: 1rem;
   line-height: 1.25rem;
-  color: ${({ theme }) => theme.text2};
+  color: ${({ theme }) => theme.text1};
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     font-size: 0.8rem;
@@ -90,7 +90,7 @@ export default function SynchroniserStats() {
     <Container>
       <div>
         {!stats ? (
-          <DotFlashing colour={theme.yellow1} size={'12px'} gap={'2px'} style={{ padding: '8px' }} />
+          <DotFlashing colour={theme.themeColor} size={'12px'} gap={'2px'} style={{ padding: '8px' }} />
         ) : (
           <PrimaryLabel>{totalVolume}</PrimaryLabel>
         )}
@@ -98,7 +98,7 @@ export default function SynchroniserStats() {
       </div>
       <div>
         {!stats ? (
-          <DotFlashing colour={theme.yellow1} size={'12px'} gap={'2px'} style={{ padding: '8px' }} />
+          <DotFlashing colour={theme.themeColor} size={'12px'} gap={'2px'} style={{ padding: '8px' }} />
         ) : (
           <PrimaryLabel>{registrarCount}</PrimaryLabel>
         )}
@@ -106,7 +106,7 @@ export default function SynchroniserStats() {
       </div>
       <div>
         {!stats ? (
-          <DotFlashing colour={theme.yellow1} size={'12px'} gap={'2px'} style={{ padding: '8px' }} />
+          <DotFlashing colour={theme.themeColor} size={'12px'} gap={'2px'} style={{ padding: '8px' }} />
         ) : (
           <PrimaryLabel>{tradeCount}+</PrimaryLabel>
         )}

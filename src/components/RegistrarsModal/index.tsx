@@ -11,7 +11,6 @@ import isEmpty from 'lodash/isEmpty'
 import { Registrar } from 'lib/synchronizer'
 
 import useCurrencyLogo from 'hooks/useCurrencyLogo'
-import { useIsDedicatedTheme } from 'hooks/useTheme'
 import { useActiveBalances } from 'state/portfolio/hooks'
 import { useLongRegistrars } from 'lib/synchronizer/hooks'
 
@@ -25,11 +24,11 @@ const SearchWrapper = styled.div`
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: flex-start;
-  background: ${({ theme }) => theme.bg1};
+  background: ${({ theme }) => theme.bg3};
   border-radius: 10px;
   white-space: nowrap;
   overflow: hidden;
-  border: 1px solid ${({ theme }) => theme.secondary1};
+  border: 1px solid ${({ theme }) => theme.themeColor};
   padding: 0 0.8rem;
   margin: 10px;
 `
@@ -50,7 +49,7 @@ const InputField = styled.input<{
   border: none;
   background: transparent;
   font-size: 1.1rem;
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.black};
   ${({ theme }) => theme.mediaWidth.upToSmall`
     font-size: 1rem;
   `};
@@ -169,7 +168,6 @@ export default function RegistrarsModal({ isOpen, onDismiss }: { isOpen: boolean
 function ActiveRegistrarsModal({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => void }) {
   const registrarList = useLongRegistrars(FALLBACK_CHAIN_ID) // this prevents us from showing [] with an unknown chain
   const router = useRouter()
-  const isDedicatedTheme = useIsDedicatedTheme()
 
   const registrars: SelectSearchOption[] = useMemo(() => {
     return registrarList.map((o) => ({ ...o, value: o.contract }))
@@ -183,26 +181,19 @@ function ActiveRegistrarsModal({ isOpen, onDismiss }: { isOpen: boolean; onDismi
     allowEmpty: true,
   })
 
-  const buildUrl = useCallback(
-    (path: string) => {
-      return isDedicatedTheme ? `/${path}&theme=${router.query.theme}` : `/${path}`
-    },
-    [router, isDedicatedTheme]
-  )
-
   const onClick = useCallback(
     (registrarId?: string) => {
       searchProps.onBlur()
       onDismiss()
-      registrarId && router.push(buildUrl(`trade?registrarId=${registrarId}`))
+      registrarId && router.push(`trade?registrarId=${registrarId}`)
     },
-    [router, onDismiss, searchProps, buildUrl]
+    [router, onDismiss, searchProps]
   )
 
   function getModalContent() {
     return (
       <>
-        <ModalHeader title="Select an asset" onClose={onClick} />
+        <ModalHeader title="Select an asset" onClose={() => onClick(undefined)} />
         <SearchWrapper>
           <InputField
             {...searchProps}

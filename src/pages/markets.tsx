@@ -61,16 +61,6 @@ export default function Markets() {
   const rpcChangerCallback = useRpcChangerCallback()
   const walletToggle = useWalletModalToggle()
 
-  const buildUrl = useCallback(
-    (contract: string) => {
-      const queryString = Object.keys(router.query)
-        .map((key) => key + '=' + router.query[key])
-        .join('&')
-      return `/trade?registrarId=${contract}&${queryString}`
-    },
-    [router]
-  )
-
   // handle external chain switches
   useEffect(() => {
     if (!chainHasSwitched) {
@@ -84,17 +74,17 @@ export default function Markets() {
         setModalRegistrar(registrar)
         setShowModal(true)
       } else {
-        router.push(buildUrl(registrar.contract))
+        router.push(`/trade?registrarId=${registrar?.contract}`)
       }
     },
-    [chainId, router, buildUrl]
+    [chainId, router]
   )
 
   useEffect(() => {
     if (navigateReady && modalRegistrar) {
-      router.push(buildUrl(modalRegistrar.contract)).then(() => setNavigateReady(false))
+      router.push(`/trade?registrarId=${modalRegistrar?.contract}`).then(() => setNavigateReady(false))
     }
-  }, [navigateReady, modalRegistrar, buildUrl, router])
+  }, [navigateReady, modalRegistrar, router])
 
   const placeholder = useMemo(() => {
     const sector =

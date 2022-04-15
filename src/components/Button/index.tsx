@@ -46,8 +46,7 @@ export const NavButton = styled.button`
   text-align: center;
   padding: 0 10px;
   border-radius: 10px;
-  background: ${({ theme }) => theme.bg1};
-  border: 1px solid ${({ theme }) => theme.border2};
+  background: ${({ theme }) => theme.bg2};
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -55,7 +54,6 @@ export const NavButton = styled.button`
   &:hover,
   &:focus {
     cursor: pointer;
-    border: 1px solid ${({ theme }) => theme.border1};
   }
 `
 

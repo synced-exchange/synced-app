@@ -30,7 +30,7 @@ const SuccessBox = styled.div`
   gap: 10px;
   align-items: center;
   margin-top: 1rem;
-  background: ${({ theme }) => theme.bg1};
+  background: ${({ theme }) => theme.bg0};
   border: 1px solid ${({ theme }) => theme.border2};
   border-radius: 10px;
   height: 2rem;
